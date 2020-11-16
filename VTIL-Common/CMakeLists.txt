@@ -13,7 +13,11 @@ source_group(TREE ${PROJECT_SOURCE_DIR} FILES ${SOURCES} ${INCLUDES})
 target_include_directories(${PROJECT_NAME} PUBLIC includes)
 
 # Common needs Capstone & Keystone
-target_link_libraries(${PROJECT_NAME} PUBLIC capstone-static keystone)
+if(${CAPSTONE_FOUND})
+	target_link_libraries(${PROJECT_NAME} PUBLIC ${CAPSTONE_LIBRARIES} keystone)
+else(${CAPSTONE_FOUND})
+    target_link_libraries(${PROJECT_NAME} PUBLIC capstone-static keystone)
+endif(${CAPSTONE_FOUND})
 
 # Put all VTIL-specific compiler flags here
 # Linking (indirectly) to VTIL-Common will automatically propagate these flags
