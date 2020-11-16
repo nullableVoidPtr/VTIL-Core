@@ -14,10 +14,16 @@ target_include_directories(${PROJECT_NAME} PUBLIC includes)
 
 # Common needs Capstone & Keystone
 if(${CAPSTONE_FOUND})
-	target_link_libraries(${PROJECT_NAME} PUBLIC ${CAPSTONE_LIBRARIES} keystone)
-else(${CAPSTONE_FOUND})
-    target_link_libraries(${PROJECT_NAME} PUBLIC capstone-static keystone)
-endif(${CAPSTONE_FOUND})
+    target_link_libraries(${PROJECT_NAME} PUBLIC ${CAPSTONE_LIBRARIES})
+else()
+    target_link_libraries(${PROJECT_NAME} PUBLIC capstone-static)
+endif()
+
+if(${KEYSTONE_FOUND})
+    target_link_libraries(${PROJECT_NAME} PUBLIC ${KEYSTONE_LIBRARIES})
+else()
+    target_link_libraries(${PROJECT_NAME} PUBLIC keystone)
+endif()
 
 # Put all VTIL-specific compiler flags here
 # Linking (indirectly) to VTIL-Common will automatically propagate these flags
